@@ -35,4 +35,28 @@ describe Cave do
       expect(cave_from_string.cell(0, 1)).to eq('~')
     end
   end
+
+  describe '#set_cell' do
+    let(:cave_from_string) { Cave.from_string(sample_string) }
+
+    it 'changes the value of a cell' do
+      expect(cave_from_string.cell(1, 1)).to eq(' ')
+      cave_from_string.set_cell(1, 1, '~')
+      expect(cave_from_string.cell(1, 1)).to eq('~')
+    end
+  end
+
+  describe '#to_image' do
+    let(:expected_image) {
+                        "#####\n" +
+                        "~   #\n" +
+                        "#   #\n" +
+                        "#####"
+    }
+
+    let(:cave_from_string) { Cave.from_string(sample_string) }
+    subject { cave_from_string.to_image }
+
+    it { is_expected.to eq(expected_image) }
+  end
 end

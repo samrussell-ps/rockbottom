@@ -10,6 +10,14 @@ class Cave
     @cells[y][x]
   end
 
+  def set_cell(x, y, value)
+    @cells[y][x] = value
+  end
+
+  def to_image
+    @cells.map { |cell_row| cell_row.join }.join("\n")
+  end
+
   def self.from_string(input_string)
     lines = input_string.split("\n")
 
