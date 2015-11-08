@@ -3,10 +3,13 @@ require './lib/cave'
 class Solver
   def initialize(cave)
     @cave = cave
+    @x = 0
+    @y = 0
   end
 
   def solution
     @solved_cave = @cave.dup
+
     find_initial_water_position
 
     while @solved_cave.water_in_cave < @solved_cave.water
@@ -19,10 +22,8 @@ class Solver
   private
 
   def find_initial_water_position
-    @x = 0
-    @y = 0
     while @solved_cave.cell(@x, @y) != '~'
-      @y += 1
+      move_one_cell(:down)
     end
   end
 
