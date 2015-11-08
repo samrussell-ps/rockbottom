@@ -3,6 +3,7 @@ require './lib/cave'
 require 'stringio'
 
 describe Cave do
+  # TODO heredoc
   let(:sample_string) { "5\n" +
                         "\n" +
                         "#####\n" +
@@ -58,5 +59,24 @@ describe Cave do
     subject { cave_from_string.to_image }
 
     it { is_expected.to eq(expected_image) }
+  end
+
+  describe '#water_in_cave' do
+    let(:sample_string) {
+                        "20\n" +
+                        "\n" +
+                        "#########\n" +
+                        "~~      #\n" +
+                        "#~      #\n" +
+                        "#~      #\n" +
+                        "#~  #   #\n" +
+                        "#~~ #   #\n" +
+                        "#~~~#   #\n" +
+                        "#########"
+    }
+    let(:cave_from_string) { Cave.from_string(sample_string) }
+    subject(:water_in_cave) { cave_from_string.water_in_cave }
+
+    it { is_expected.to eq(10) }
   end
 end

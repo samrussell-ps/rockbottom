@@ -18,6 +18,10 @@ class Cave
     @cells.map { |cell_row| cell_row.join }.join("\n")
   end
 
+  def water_in_cave
+    @cells.reduce(0) { |sum, row| sum + row.count { |cell| cell == '~' } }
+  end
+
   def self.from_string(input_string)
     lines = input_string.split("\n")
 
