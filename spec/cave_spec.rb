@@ -79,4 +79,42 @@ describe Cave do
 
     it { is_expected.to eq(10) }
   end
+
+  describe '#result_string' do
+    let(:sample_string) {
+                        "20\n" +
+                        "\n" +
+                        "#########\n" +
+                        "~~      #\n" +
+                        "#~      #\n" +
+                        "#~      #\n" +
+                        "#~  #   #\n" +
+                        "#~~ #   #\n" +
+                        "#~~~#   #\n" +
+                        "#########"
+    }
+    let(:cave_from_string) { Cave.from_string(sample_string) }
+    subject(:result_string) { cave_from_string.result_string }
+
+    it { is_expected.to eq('1 6 2 1 0 0 0 0 0') }
+  end
+
+  describe '#result_string' do
+    let(:sample_string) {
+                        "30\n" +
+                        "\n" +
+                        "#########\n" +
+                        "~~      #\n" +
+                        "#~      #\n" +
+                        "#~~~~~  #\n" +
+                        "#~~~#~  #\n" +
+                        "#~~~#   #\n" +
+                        "#~~~#   #\n" +
+                        "#########"
+    }
+    let(:cave_from_string) { Cave.from_string(sample_string) }
+    subject(:result_string) { cave_from_string.result_string }
+
+    it { is_expected.to eq('1 6 4 4 1 ~ 0 0 0') }
+  end
 end

@@ -33,21 +33,48 @@ class Solver
   end
 
   def find_next_cell
-    if cell_below_is_empty?
-      @y += 1
-    elsif @solved_cave.cell(@x+1, @y) == ' '
-      @x += 1
+    if cell_is_empty?(:down)
+      move_one_cell(:down)
+    elsif cell_is_empty?(:right)
+      move_one_cell(:right)
     else
-      @y -= 1
+      move_one_cell(:up)
 
-      while @solved_cave.cell(@x-1, @y) == ' '
-        @x -= 1
+      while cell_is_empty?(:left)
+        move_one_cell(:left)
       end
     end
   end
 
-  def cell_below_is_empty?
-    @solved_cave.cell(@x, @y+1) == ' '
+  def cell_is_empty?(direction)
+    @solved_cave.cell(@x + x_offset(direction), @y + y_offset(direction)) == ' '
+  end
+
+  def move_one_cell(direction)
+    @x += x_offset(direction)
+    
+    @y += y_offset(direction)
+  end
+
+  def x_offset(direction)
+    offset(direction)[:x]
+  end
+
+  def y_offset(direction)
+    offset(direction)[:y]
+  end
+
+  def offset(direction)
+    case direction
+    when :left
+      { x: -1, y: 0 }
+    when :right
+      { x: 1, y: 0 }
+    when :up
+      { x: 0, y: -1 }
+    when :down
+      { x: 0, y: 1 }
+    end
   end
 
   def add_one_unit_of_water_to_cell

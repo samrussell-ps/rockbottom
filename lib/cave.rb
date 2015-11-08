@@ -22,6 +22,30 @@ class Cave
     @cells.reduce(0) { |sum, row| sum + row.count { |cell| cell == '~' } }
   end
 
+  def result_string
+    columns = @cells.transpose
+
+    columns.map(&method(:count_water_in_column)).join(' ')
+  end
+
+  def count_water_in_column(column)
+    column.reduce(0) do |sum, cell| 
+      if sum == '~'
+        '~'
+      elsif cell == '#'
+        sum
+      elsif cell == '~'
+        sum += 1
+      elsif cell == ' '
+        if sum > 0
+          cell = '~'
+        else
+          sum
+        end
+      end
+    end
+  end
+
   def self.from_string(input_string)
     lines = input_string.split("\n")
 
