@@ -12,7 +12,9 @@ class Solver
 
     find_initial_water_position
 
-    while @solved_cave.water_in_cave < @solved_cave.water
+    initial_water_in_cave = @solved_cave.water_in_cave
+
+    (@solved_cave.water - initial_water_in_cave).times do
       add_one_unit_of_water_to_cave
     end
 
